@@ -1,0 +1,49 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# VS Code settings
+.vscode/
+
+# Mac system files
+.DS_Store
+
+# Office Add-in manifest
+*.sppkg
+*.app
+*.snk
+*.pfx
+*.p12
+*.cer
+*.pem
+*.crt
+*.key
+
+# Webpack output
+coverage/
+
+# Misc
+.env
+.env.*
+
+# Office Add-in sideload
+~$*.docx
+~$*.xlsx
+~$*.pptx
