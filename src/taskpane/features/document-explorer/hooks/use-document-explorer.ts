@@ -226,14 +226,151 @@ export const useDocumentExplorer = (onStatusChange: (status: string) => void) =>
         instructionsPara.font.italic = true;
         instructionsPara.font.color = "#6366f1";
 
-        const conclusion = body.insertParagraph(
-          "\n🎉 Félicitations ! Vous venez de créer un document riche avec l'API Office JS !",
+        // Section 7: Content Controls
+        body.insertParagraph("", Word.InsertLocation.end);
+        const heading7 = body.insertParagraph(
+          "7. Content Controls Interactifs",
           Word.InsertLocation.end
         );
-        conclusion.alignment = Word.Alignment.centered;
-        conclusion.font.size = 16;
-        conclusion.font.color = "#059669";
-        conclusion.font.bold = true;
+        heading7.styleBuiltIn = Word.BuiltInStyleName.heading1;
+        heading7.font.color = "#1e40af";
+
+        body.insertParagraph(
+          "Les Content Controls permettent de créer des zones de contenu structurées et contrôlées. Voici des exemples :",
+          Word.InsertLocation.end
+        );
+
+        // Exemple 1: Rich Text Content Control
+        body.insertParagraph("", Word.InsertLocation.end);
+        const richTextLabel = body.insertParagraph(
+          "Exemple 1 - Rich Text Control :",
+          Word.InsertLocation.end
+        );
+        richTextLabel.font.bold = true;
+        richTextLabel.font.size = 12;
+
+        const richTextPara = body.insertParagraph(
+          "Cliquez ici pour entrer du texte enrichi avec formatage",
+          Word.InsertLocation.end
+        );
+        const richTextRange = richTextPara.getRange();
+        const richTextCC = richTextRange.insertContentControl(Word.ContentControlType.richText);
+        richTextCC.title = "Description du produit";
+        richTextCC.tag = "product_description";
+        richTextCC.appearance = Word.ContentControlAppearance.tags;
+        richTextCC.color = "#3b82f6";
+        richTextCC.placeholderText = "Entrez une description détaillée du produit...";
+        await context.sync();
+
+        // Exemple 2: Plain Text Content Control
+        body.insertParagraph("", Word.InsertLocation.end);
+        const plainTextLabel = body.insertParagraph(
+          "Exemple 2 - Plain Text Control (sans formatage) :",
+          Word.InsertLocation.end
+        );
+        plainTextLabel.font.bold = true;
+        plainTextLabel.font.size = 12;
+
+        const plainTextPara = body.insertParagraph("Nom du client", Word.InsertLocation.end);
+        const plainTextRange = plainTextPara.getRange();
+        const plainTextCC = plainTextRange.insertContentControl(Word.ContentControlType.richText);
+        plainTextCC.title = "Nom du client";
+        plainTextCC.tag = "customer_name";
+        plainTextCC.appearance = Word.ContentControlAppearance.tags;
+        plainTextCC.color = "#10b981";
+        plainTextCC.placeholderText = "Entrez le nom complet du client";
+        await context.sync();
+
+        // Exemple 3: Content Control verrouillé
+        body.insertParagraph("", Word.InsertLocation.end);
+        const lockedLabel = body.insertParagraph(
+          "Exemple 3 - Content Control protégé (ne peut pas être supprimé) :",
+          Word.InsertLocation.end
+        );
+        lockedLabel.font.bold = true;
+        lockedLabel.font.size = 12;
+
+        const lockedPara = body.insertParagraph(
+          "Ce contenu est protégé et ne peut pas être supprimé",
+          Word.InsertLocation.end
+        );
+        const lockedRange = lockedPara.getRange();
+        const lockedCC = lockedRange.insertContentControl(Word.ContentControlType.richText);
+        lockedCC.title = "Clause légale";
+        lockedCC.tag = "legal_clause";
+        lockedCC.appearance = Word.ContentControlAppearance.boundingBox;
+        lockedCC.color = "#ef4444";
+        lockedCC.cannotDelete = true;
+        lockedCC.placeholderText = "Texte de la clause légale";
+        await context.sync();
+
+        // Exemple 4: Combo Box avec données
+        body.insertParagraph("", Word.InsertLocation.end);
+        const comboLabel = body.insertParagraph(
+          "Exemple 4 - Combo Box (avec choix prédéfinis) :",
+          Word.InsertLocation.end
+        );
+        comboLabel.font.bold = true;
+        comboLabel.font.size = 12;
+
+        const comboPara = body.insertParagraph("Sélectionnez une priorité", Word.InsertLocation.end);
+        const comboRange = comboPara.getRange();
+        const comboCC = comboRange.insertContentControl(Word.ContentControlType.comboBox);
+        comboCC.title = "Niveau de priorité";
+        comboCC.tag = "priority_level";
+        comboCC.appearance = Word.ContentControlAppearance.boundingBox;
+        comboCC.color = "#f59e0b";
+        await context.sync();
+
+        // Exemple 5: Date Picker
+        body.insertParagraph("", Word.InsertLocation.end);
+        const dateLabel = body.insertParagraph(
+          "Exemple 5 - Date Picker :",
+          Word.InsertLocation.end
+        );
+        dateLabel.font.bold = true;
+        dateLabel.font.size = 12;
+
+        const datePara = body.insertParagraph(
+          "Sélectionnez une date d'échéance",
+          Word.InsertLocation.end
+        );
+        const dateRange = datePara.getRange();
+        const dateCC = dateRange.insertContentControl(Word.ContentControlType.datePicker);
+        dateCC.title = "Date d'échéance";
+        dateCC.tag = "due_date";
+        dateCC.appearance = Word.ContentControlAppearance.boundingBox;
+        dateCC.color = "#8b5cf6";
+        await context.sync();
+
+        // Exemple 6: CheckBox
+        body.insertParagraph("", Word.InsertLocation.end);
+        const checkboxLabel = body.insertParagraph(
+          "Exemple 6 - Check Box :",
+          Word.InsertLocation.end
+        );
+        checkboxLabel.font.bold = true;
+        checkboxLabel.font.size = 12;
+
+        const checkboxPara = body.insertParagraph(
+          "J'accepte les conditions générales",
+          Word.InsertLocation.end
+        );
+        const checkboxRange = checkboxPara.getRange();
+        const checkboxCC = checkboxRange.insertContentControl(Word.ContentControlType.checkBox);
+        checkboxCC.title = "Acceptation CGV";
+        checkboxCC.tag = "terms_accepted";
+        checkboxCC.appearance = Word.ContentControlAppearance.hidden;
+        await context.sync();
+
+        // Instructions pour les Content Controls
+        body.insertParagraph("", Word.InsertLocation.end);
+        const ccInstructionsPara = body.insertParagraph(
+          "💡 Astuce : Allez dans l'onglet 'Content Controls' pour voir la liste complète des Content Controls de ce document et les gérer !",
+          Word.InsertLocation.end
+        );
+        ccInstructionsPara.font.italic = true;
+        ccInstructionsPara.font.color = "#8b5cf6";
 
         await context.sync();
         onStatusChange("✅ Document de démonstration créé avec succès !");

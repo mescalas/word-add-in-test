@@ -2,9 +2,10 @@ import * as React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Eye, Variable } from "lucide-react";
+import { Eye, Variable, Box } from "lucide-react";
 import { DocumentExplorerTab } from "../features/document-explorer";
 import { VariableManagerTab } from "../features/variable-manager";
+import { ContentControlsManagerTab } from "../features/building-blocks-manager";
 
 const App: React.FC = () => {
   const [status, setStatus] = React.useState<string>("");
@@ -15,9 +16,6 @@ const App: React.FC = () => {
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold text-gray-900">Explorateur API Office JS</h1>
-          <p className="text-gray-600">
-            Découvrez les capacités de l'API Word pour créer et analyser des documents
-          </p>
           {status && (
             <Badge variant="secondary" className="mt-2 text-sm">
               {status}
@@ -26,7 +24,7 @@ const App: React.FC = () => {
         </div>
         <Separator className="bg-gray-500" />
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2 bg-gray-100 rounded-md">
+          <TabsList className="grid w-full grid-cols-3 bg-gray-100 rounded-md">
             <TabsTrigger value="explorer" className="data-[state=active]:bg-white">
               <Eye className="w-4 h-4 mr-2" />
               Explorateur API
@@ -34,6 +32,10 @@ const App: React.FC = () => {
             <TabsTrigger value="variables" className="data-[state=active]:bg-white">
               <Variable className="w-4 h-4 mr-2" />
               Variables
+            </TabsTrigger>
+            <TabsTrigger value="content-controls" className="data-[state=active]:bg-white">
+              <Box className="w-4 h-4 mr-2" />
+              Content Controls
             </TabsTrigger>
           </TabsList>
 
@@ -43,6 +45,10 @@ const App: React.FC = () => {
 
           <TabsContent value="variables" className="space-y-6">
             <VariableManagerTab onStatusChange={setStatus} />
+          </TabsContent>
+
+          <TabsContent value="content-controls" className="space-y-6">
+            <ContentControlsManagerTab onStatusChange={setStatus} />
           </TabsContent>
         </Tabs>
       </div>
